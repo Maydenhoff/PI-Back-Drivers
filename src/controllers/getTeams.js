@@ -1,10 +1,11 @@
 const axios = require("axios");
 const { Team } = require("../db");
 const { parseTeams } = require("../utils/parseTeams");
+const getAllDrivers = require("../utils/getDriversUtil");
 
 const getTeams = async (req, res) => {
   try {
-    const { data } = await axios.get("http://localhost:5000/drivers");
+    const { data } = await axios.get(getAllDrivers());
     const array = [];
     for (let i = 0; i < data.length; i++) {
       if (data[i].teams) {

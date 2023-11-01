@@ -7,17 +7,16 @@ const getDriverById = async (req, res) => {
   const { idDriver } = req.params;
   try {
     const data = await getAllDrivers()
-
-    const findData = data.find((e) => {
-      return e.id == idDriver;
-    });
-    if (findData) {
-      return res.status(200).json(findData);
-    } else {
-      return res
-        .status(200)
-        .send("No se encontraron corredores con el id indicado");
-    }
+res.status(200).send("aca")    // const findData = data.find((e) => {
+    //   return e.id == idDriver;
+    // });
+    // if (findData) {
+    //   return res.status(200).json(findData);
+    // } else {
+    //   return res
+    //     .status(200)
+    //     .send("No se encontraron corredores con el id indicado");
+    // }
 
     // const driverDataBase = await Driver.findOne({ where: { id: idDriver } })
     //   .then((response) => response.dataValues)
