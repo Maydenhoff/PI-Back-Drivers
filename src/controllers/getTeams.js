@@ -1,25 +1,25 @@
 const axios = require("axios");
 const { Team } = require("../db");
-const { parseTeams } = require("../utils/parseTeams");
 const getAllDrivers = require("../utils/getDriversUtil");
 
 const getTeams = async (req, res) => {
   try {
-    const { data } = await axios.get(getAllDrivers());
-    const array = [];
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].teams) {
-        let t = parseTeams(data[i].teams);
-        for (let j = 0; j < t.length; j++) {
-          await Team.findOrCreate({ where: { name: t[j] } });
+    const data  = await getAllDrivers()
 
-          if (!array.includes(t[j])) {
-            array.push(t[j]);
-          }
-        }
+let array = []
+    for (let i = 0; i < data.length; i++) {
+     
+         if (data[i].teams) {
+          data[i].teams.map(async(e) => {
+            if(!array.includes(e)) {
+              array.push(e)
+            }
+            await Team.findOrCreate({where: {name: e.trim()}})
+          })
+
+
       }
     }
-
     return res.status(200).json(array);
   } catch (error) {
     return res.status(500).send(error.message);
