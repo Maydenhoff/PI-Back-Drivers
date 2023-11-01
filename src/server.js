@@ -2,13 +2,16 @@ const express = require("express");
 const router = require("./routes");
 const morgan = require("morgan");
 const cors = require("cors");
+const {
+    URL_VERCEL, LOCAL_HOST
+  } = process.env;
 
 const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
 server.use(cors({
-    origin:"https://pi-front-drivers-uqm9.vercel.app/"
+    origin:[URL_VERCEL, LOCAL_HOST]
 }));
 
 server.use(router);
